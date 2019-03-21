@@ -16,6 +16,9 @@
                         <router-link to="/mes-listes" class="nav-link">Mes listes</router-link>
                     </li>
                     <li class="nav-item">
+                        <router-link to="/ma-liste" class="nav-link">Ma liste</router-link>
+                    </li>
+                    <li class="nav-item">
                         <router-link to="/a-propos" class="nav-link">A propos</router-link>
                     </li>
                 </ul>

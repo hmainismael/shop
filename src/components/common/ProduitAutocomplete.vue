@@ -79,7 +79,7 @@
             }
 
         },
-        handleClickOutside(evt) {
+        handleClickOutside() {
             this.isOpen = false;
             this.arrowCounter = -1;
         }
