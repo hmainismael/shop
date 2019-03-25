@@ -17,7 +17,7 @@ export default new Router({
             name: 'mesListes',
             component: MesListes
         }, {
-            path: '/ma-liste',
+            path: '/ma-liste/:name',
             name: 'maListe',
             component: MaListe
         }, {

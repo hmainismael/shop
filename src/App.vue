@@ -19,5 +19,10 @@ export default {
 </script>
 
 <style>
+h1 {
+ margin-top: 40px !important;
+ margin-bottom: 40px !important;
+}
+
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
 </style>

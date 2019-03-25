@@ -32,8 +32,10 @@
 <script>
 export default {
     name: 'liste-produits',
-    data: {
+    data: function () {
+      return {
 
+      }
     },
     props: ['items'],
     methods: {
@@ -55,6 +57,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+ul {
+  margin-top: 50px !important;
+}
 .list-group-item {
     margin: 0px !important;
 }

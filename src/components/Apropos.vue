@@ -1,8 +1,6 @@
 <template lang="html">
 
-    <section class="a-propos">
-        <h1>a-propos Component</h1>
-    </section>
+    <h4>Application créée par les étudiants de Master I2L de l'ULCO de Calais</h4>
 
 </template>
 
@@ -28,5 +26,7 @@
 </script>
 
 <style scoped lang="css">
-
+h4 {
+    margin: 80px;
+}
 </style>

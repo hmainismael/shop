@@ -7,10 +7,7 @@
       <div class="autocomplete">
         <input type="text" class="form-control" @input="onChange" v-model="produit" @keyup.enter="onEnter" />
         <ul id="autocomplete-results" v-show="isOpen" class="autocomplete-results">
-          <li class="loading" v-if="isLoading">
-            Loading results...
-          </li>
-          <li v-else v-for="(result, i) in results" :key="i" @click="setResult(result.nom)" class="autocomplete-result" :class="{ 'is-active': i === arrowCounter }">
+          <li v-for="(result, i) in results" :key="i" @click="setResult(result.nom)" class="autocomplete-result" :class="{ 'is-active': i === arrowCounter }">
             {{ result.nom }}
           </li>
         </ul>
@@ -37,7 +34,6 @@
             isOpen: false,
             results: [],
             produit: "",
-            isLoading: false,
             arrowCounter: 0
         };
     },
@@ -88,7 +84,6 @@
           items: function(val, oldValue) {
               if (val.length !== oldValue.length) {
                   this.results = val;
-                  this.isLoading = false;
               }
           }
       },
