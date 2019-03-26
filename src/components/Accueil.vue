@@ -27,15 +27,17 @@
     mounted() {
       const allLists = JSON.parse(window.localStorage.getItem('lists')) || [];
 
-      const maxUpdated = Math.max.apply(Math, allLists.map(
-        function(list) {
-            return list.updatedAt;
-        })
-      );
+      if (allLists.length > 0) {
+          const maxUpdated = Math.max.apply(Math, allLists.map(
+              function(list) {
+                  return list.updatedAt;
+              })
+          );
 
-      const index = allLists.findIndex(list => list.updatedAt == maxUpdated);
+          const index = allLists.findIndex(list => list.updatedAt == maxUpdated);
 
-      this.last = allLists[index];
+          this.last = allLists[index];
+      }
     },
     data() {
       return {
