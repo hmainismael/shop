@@ -37,12 +37,12 @@
           <div class="input-group-prepend">
             <span class="input-group-text">Nom de la liste</span>
           </div>
-          <input type="text" class="form-control" v-model="name">
+          <input type="text" class="form-control" v-model="name" @keyup.enter="createList">
         </div>
       </div>
       <div class="col-sm-4">
         <button type="button" id="creer" class="btn btn-success" @click="createList">Créer</button>
-        <button type="button" id="annuler" class="btn btn-danger" @click="creationList = false">Annuler</button>
+        <button type="button" id="annuler" class="btn btn-danger" @click="reInitCreationList">Annuler</button>
       </div>
     </div>
   </div>
