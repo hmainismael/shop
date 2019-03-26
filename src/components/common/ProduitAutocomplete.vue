@@ -1,22 +1,21 @@
 <template lang="html">
-  <div class="form-group">
-    <div class="input-group w-50">
-      <div class="input-group-prepend">
-        <span class="input-group-text">Produit</span>
-      </div>
-      <div class="autocomplete">
-        <input type="text" class="form-control" @input="onChange" v-model="produit" @keyup.enter="onEnter" />
-        <ul id="autocomplete-results" v-show="isOpen" class="autocomplete-results">
-          <li v-for="(result, i) in results" :key="i" @click="setResult(result.nom)" class="autocomplete-result" :class="{ 'is-active': i === arrowCounter }">
-            {{ result.nom }}
-          </li>
-        </ul>
-      </div>
-      <div class="input-group-append">
-        <button class="btn btn-primary" type="button" @click="ajouterProduit">Ajouter</button>
-      </div>
+    <div class="row">
+        <div>
+          <div class="input-group">
+            <div class="autocomplete">
+              <input type="text" class="form-control" @input="onChange" v-model="produit" @keyup.enter="onEnter" />
+              <ul id="autocomplete-results" v-show="isOpen" class="autocomplete-results">
+                <li v-for="(result, i) in results" :key="i" @click="setResult(result.nom)" class="autocomplete-result">
+                  {{ result.nom }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <button class="btn btn-primary" type="button" @click="ajouterProduit">Ajouter</button>
+        </div>
     </div>
-  </div>
 </template>
 
 <script lang="js">
@@ -33,8 +32,7 @@
         return {
             isOpen: false,
             results: [],
-            produit: "",
-            arrowCounter: 0
+            produit: ""
         };
     },
     methods: {
@@ -53,9 +51,9 @@
             this.$emit("input", this.produit);
 
             this.filterResults();
-            this.isOpen = true;
-        },
 
+            this.results.length > 0 ? this.isOpen = true : this.isOpen = false;
+        },
         filterResults() {
             this.results = this.items.filter(item => {
                 return item['nom'].toLowerCase().indexOf(this.produit.toLowerCase()) > -1;
@@ -68,16 +66,12 @@
         onEnter() {
             if (this.produit) {
                 this.ajouterProduit()
-            } else {
-                this.produit = this.results[this.arrowCounter].nom;
-                this.isOpen = false;
-                this.arrowCounter = -1;
+                this.handleClickOutside()
             }
 
         },
         handleClickOutside() {
             this.isOpen = false;
-            this.arrowCounter = -1;
         }
       },
       watch: {
@@ -97,9 +91,11 @@
 </script>
 
 <style scoped lang="css">
+  .row {
+    padding-left: 15px;
+  }
   .autocomplete {
     position: relative;
-    width: 130px;
   }
 
   .autocomplete-results {

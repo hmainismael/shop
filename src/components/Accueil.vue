@@ -7,7 +7,7 @@
     <ul class="list-group" v-if="last.name">
       <li class="list-group-item">
         <div class="row">
-          <h4>Dernière liste ajoutée</h4>
+          <h4>Dernière liste modifiée</h4>
           <div class="col-sm-10">
               <h5>{{ last.name }}</h5>
           </div>
@@ -25,8 +25,17 @@
     name: 'accueil',
     props: [],
     mounted() {
-      const allLists = JSON.parse(window.localStorage.getItem('lists')) || []
-      this.last = allLists[allLists.length - 1]
+      const allLists = JSON.parse(window.localStorage.getItem('lists')) || [];
+
+      const maxUpdated = Math.max.apply(Math, allLists.map(
+        function(list) {
+            return list.updatedAt;
+        })
+      );
+
+      const index = allLists.findIndex(list => list.updatedAt == maxUpdated);
+
+      this.last = allLists[index];
     },
     data() {
       return {

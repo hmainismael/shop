@@ -6,7 +6,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text">Recherche</span>
       </div>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" v-model="searching" @input="onChange">
     </div>
 
     <table class="table">
@@ -18,7 +18,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="(item, index) in lists" :key="index">
+      <tr v-for="(item, index) in listsToDisplay" :key="index">
         <th scope="row">{{ item.name }}</th>
         <td>{{ item.budget }}</td>
         <td>
@@ -56,14 +56,16 @@
     data() {
       return {
           lists: null,
+          listsToDisplay: null,
           creationList: false,
-          name: ''
+          name: '',
+          searching: ''
       }
     },
     mounted() {
           if (!JSON.parse(window.localStorage.getItem('lists')))
               window.localStorage.setItem('lists', JSON.stringify([]))
-          this.lists = JSON.parse(window.localStorage.getItem('lists'))
+          this.lists = this.listsToDisplay = JSON.parse(window.localStorage.getItem('lists'))
     },
     methods: {
       createList() {
@@ -73,7 +75,7 @@
               return alert('Nom vide ou déjà existant')
           }
 
-          this.list = {name: this.name, panier: [], budget: 20}
+          this.list = {name: this.name, panier: [], budget: 20, updatedAt: new Date().getTime()}
           this.lists.push(this.list)
           alert('Liste créée')
 
@@ -87,6 +89,11 @@
           this.lists.splice(index, 1)
 
           alert('Liste supprimée')
+      },
+      onChange() {
+          const results = this.lists.filter(list => list.name.includes(this.searching));
+
+          this.listsToDisplay = results
       }
     },
     computed: {
@@ -96,6 +103,8 @@
       lists: {
           handler () {
               window.localStorage.setItem('lists', JSON.stringify(this.lists))
+
+              this.listsToDisplay = this.lists
           },
           deep: true
       }

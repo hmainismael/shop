@@ -48,11 +48,13 @@ export default  {
                         accumulator += parseInt(currentValue.prix ? currentValue.prix : 0)
                     ) : (accumulator)
 
-                return this.list.panier.reduce(reducer, 0)
+                return this.list.panier.reduce(reducer, 0);
             }
+
+            return 0
         },
         budgetDepasse () {
-            return this.list.budget < this.montantTotal
+            return this.list.budget < this.montantTotal;
         },
         montantClass: function() {
             return this.budgetDepasse ? 'red-text' : 'green-text'
@@ -61,7 +63,9 @@ export default  {
     watch: {
         list: {
             handler () {
-                window.localStorage.setItem('lists', JSON.stringify(this.lists))
+                this.list.updatedAt = new Date().getTime();
+
+                window.localStorage.setItem('lists', JSON.stringify(this.lists));
             },
             deep: true
         }
